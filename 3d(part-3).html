@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Website with A-Frame</title>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+</head>
+<body>
+    <a-scene>
+        <!-- Sky -->
+        <a-sky color="#ECECEC"></a-sky>
+
+        <!-- Ground -->
+        <a-plane position="0 0 0" rotation="-90 0 0" width="20" height="20" color="#7BC8A4"></a-plane>
+
+        <!-- Box -->
+        <a-box position="-1 0.5 -3" rotation="0 45 0" color="#4CC3D9"></a-box>
+
+        <!-- Sphere -->
+        <a-sphere position="1 1.25 -5" radius="1.25" color="#EF2D5E"></a-sphere>
+
+        <!-- Cylinder -->
+        <a-cylinder position="0 0.75 -2" radius="0.5" height="1.5" color="#FFC65D"></a-cylinder>
+
+        <!-- Cone -->
+        <a-cone position="3 1 -3" radius-bottom="1" radius-top="0.5" height="2" color="#FF6347"></a-cone>
+
+        <!-- Torus -->
+        <a-torus position="-3 1 -4" radius="1" tube="0.2" color="#FF4500"></a-torus>
+
+        <!-- Octahedron -->
+        <a-octahedron position="2 1 -4" radius="1" color="#8A2BE2"></a-octahedron>
+
+        <!-- Tetrahedron -->
+        <a-tetrahedron position="-2 1 -2" radius="1" color="#DAA520"></a-tetrahedron>
+
+        <!-- Dodecahedron -->
+        <a-dodecahedron position="1 1 -2" radius="1" color="#228B22"></a-dodecahedron>
+
+        <!-- Icosahedron -->
+        <a-icosahedron position="2 1 -6" radius="1" color="#B22222"></a-icosahedron>
+
+        <!-- Torus Knot -->
+        <a-torus-knot position="-2 1 -6" radius="1" tube="0.2" p="2" q="3" color="#FF1493"></a-torus-knot>
+
+        <!-- Ring -->
+        <a-ring position="0 1.5 -4" radius-inner="0.5" radius-outer="1" color="#FFD700"></a-ring>
+
+        <!-- Text -->
+        <a-text value="Welcome to My 3D Website" position="0 2.5 -3" rotation="0 0 0" color="#000000"></a-text>
+
+        <!-- Lighting -->
+        <a-light type="ambient" color="#445451"></a-light>
+        <a-light type="point" intensity="2" position="2 4 -3" color="#FFFFFF"></a-light>
+
+        <!-- Camera -->
+        <a-entity camera position="0 1.6 0" wasd-controls look-controls>
+            <a-cursor></a-cursor>
+        </a-entity>
+    </a-scene>
+</body>
+</html>
