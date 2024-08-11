@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3D Rotating Sphere with Cubes</title>
+  <style>
+    body { margin: 0; }
+    canvas { display: block; }
+  </style>
+</head>
+<body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script>
+    // Create a scene
+    const scene = new THREE.Scene();
+    
+    // Create a camera
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    camera.position.z = 5;
+    
+    // Create a renderer
+    const renderer = new THREE.WebGLRenderer();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.body.appendChild(renderer.domElement);
+    
+    // Create a yellow sphere
+    const sphereGeometry = new THREE.SphereGeometry(1, 32, 32);
+    const sphereMaterial = new THREE.MeshBasicMaterial({ color: 0xffff00 });
+    const sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
+    scene.add(sphere);
+    
+    // Create blue cubes
+    const cubeGeometry = new THREE.BoxGeometry(0.5, 0.5, 0.5);
+    const cubeMaterial = new THREE.MeshBasicMaterial({ color: 0x0000ff });
+    const cube1 = new THREE.Mesh(cubeGeometry, cubeMaterial);
+    const cube2 = new THREE.Mesh(cubeGeometry, cubeMaterial);
+    
+    // Position cubes
+    cube1.position.set(2, 0, 0);
+    cube2.position.set(-2, 0, 0);
+    
+    // Add cubes to the scene
+    scene.add(cube1);
+    scene.add(cube2);
+    
+    // Create 3D text
+    const loader = new THREE.FontLoader();
+    loader.load('https://threejs.org/examples/fonts/helvetiker_regular.typeface.json', function (font) {
+      const textGeometry = new THREE.TextGeometry('Devansh Deepak', {
+        font: font,
+        size: 0.5,
+        height: 0.1
+      });
+      const textMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff });
+      const textMesh = new THREE.Mesh(textGeometry, textMaterial);
+      textMesh.position.set(-2, -2, 0);
+      scene.add(textMesh);
+    });
+    
+    // Animation loop
+    function animate() {
+      requestAnimationFrame(animate);
+      sphere.rotation.y += 0.01;
+      cube1.rotation.y += 0.01;
+      cube2.rotation.y += 0.01;
+      renderer.render(scene, camera);
+    }
+    
+    animate();
+  </script>
+</body>
+</html>
