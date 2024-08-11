@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Train Model with Track</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #00ff00; /* Green background */
+        }
+
+        #scene-container {
+            width: 100%;
+            height: 100vh;
+        }
+    </style>
+</head>
+<body>
+    <div id="scene-container"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script>
+        // Initialize scene, camera, and renderer
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.getElementById('scene-container').appendChild(renderer.domElement);
+
+        // Create train body
+        const trainBodyGeometry = new THREE.BoxGeometry(4, 1.5, 1.5);
+        const trainBodyMaterial = new THREE.MeshPhongMaterial({color: 0xff0000});
+        const trainBody = new THREE.Mesh(trainBodyGeometry, trainBodyMaterial);
+        trainBody.position.y = 0.75;
+        scene.add(trainBody);
+
+        // Create train cabin
+        const trainCabinGeometry = new THREE.BoxGeometry(2, 1.5, 1.5);
+        const trainCabinMaterial = new THREE.MeshPhongMaterial({color: 0xff8800});
+        const trainCabin = new THREE.Mesh(trainCabinGeometry, trainCabinMaterial);
+        trainCabin.position.set(-1.5, 1.5, 0);
+        scene.add(trainCabin);
+
+        // Create train chimney
+        const trainChimneyGeometry = new THREE.CylinderGeometry(0.3, 0.3, 1, 32);
+        const trainChimneyMaterial = new THREE.MeshPhongMaterial({color: 0x333333});
+        const trainChimney = new THREE.Mesh(trainChimneyGeometry, trainChimneyMaterial);
+        trainChimney.position.set(1.5, 2.25, 0);
+        scene.add(trainChimney);
+
+        // Create wheels
+        const wheelGeometry = new THREE.CylinderGeometry(0.4, 0.4, 0.3, 32);
+        const wheelMaterial = new THREE.MeshPhongMaterial({color: 0x000000});
+        
+        const wheelPositions = [
+            { x: -1.5, y: 0.4, z: 0.9 },
+            { x: -1.5, y: 0.4, z: -0.9 },
+            { x: 1.5, y: 0.4, z: 0.9 },
+            { x: 1.5, y: 0.4, z: -0.9 },
+            { x: 0, y: 0.4, z: 0.9 },
+            { x: 0, y: 0.4, z: -0.9 }
+        ];
+
+        wheelPositions.forEach(pos => {
+            const wheel = new THREE.Mesh(wheelGeometry, wheelMaterial);
+            wheel.rotation.z = Math.PI / 2;
+            wheel.position.set(pos.x, pos.y, pos.z);
+            scene.add(wheel);
+        });
+
+        // Create train track
+        const trackGeometry = new THREE.TorusGeometry(10, 0.1, 16, 100);
+        const trackMaterial = new THREE.MeshPhongMaterial({color: 0x808080});
+        const track = new THREE.Mesh(trackGeometry, trackMaterial);
+        track.rotation.x = Math.PI / 2;
+        scene.add(track);
+
+        // Add lighting
+        const ambientLight = new THREE.AmbientLight(0x404040);
+        scene.add(ambientLight);
+
+        const pointLight = new THREE.PointLight(0xffffff, 1, 100);
+        pointLight.position.set(10, 10, 10);
+        scene.add(pointLight);
+
+        // Set camera position
+        camera.position.z = 20;
+
+        // Render function
+        function animate() {
+            requestAnimationFrame(animate);
+            renderer.render(scene, camera);
+        }
+
+        animate();
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+    </script>
+</body>
+</html>
